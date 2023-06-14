@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/templates/pageTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Admin Welcome Page
+    </ui:define>
+
+    <ui:define name="content">
+        Welcome system administrator! testing
+    </ui:define>
+
+    <ui:define name="content">
+        <h:dataTable    
+            styleClass="table table-hover table-striped"
+            value="#{vehicleService.findAll()}" 
+            var="vehicle">
+            <h:column>
+                <f:facet name="header"><h:outputText value="Vehicle ID"/></f:facet>
+                <h:outputText value="#{vehicle.id}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header"><h:outputText value="Vehicle Name"/></f:facet>
+                <h:outputText value="#{vehicle.vehicleName}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header"><h:outputText value="Vehicle Location"/></f:facet>
+                <h:outputText value="#{vehicle.vehicleLocation}"/>
+            </h:column>
+
+            <!-- <h:column>
+                <f:facet name="header"><h:outputText value="Vehicle Booking"/></f:facet>
+                <h:outputText value="#{vehicle.bookingDate}">
+                    <f:convertDateTime type="localDate" dateStyle="full" />
+                </h:outputText>
+            </h:column>
+        
+            <h:column>
+                <f:facet name="header"><h:outputText value="# Owners"/></f:facet>
+                <h:outputText value="#{vehicle.vehicleAdmin.size()}"/>
+            </h:column>-->
+
+
+        </h:dataTable>
+
+    </ui:define>
+</ui:composition>

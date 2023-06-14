@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="booking" type="edu.iit.sat.itmd4515.kanand4.domain.VehicleBooking" required="true" />
+        <cc:attribute name="action" method-signature="java.lang.String action()" required="false" />
+        <cc:attribute name="operation" type="java.lang.String" required="true" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:form>
+
+
+            <p>
+                <h:panelGroup layout="block" rendered="#{not cc.attrs.operation.equalsIgnoreCase('create')}">
+                    <h:outputLabel for="bookingId" value="Booking ID#{cc.attrs.booking.id}" />
+                    <h:inputHidden id="bookingId" value="#{cc.attrs.booking.id}"/> 
+                    <h:messages for="bookingId" />
+                </h:panelGroup>
+            </p>
+
+
+            <p>
+                <h:panelGroup layout="block" >
+                    <h:outputLabel for="vehicleId" value="Booking for Vehicle Name: #{cc.attrs.booking.vehicle.vehicleName}" />
+                    <h:inputHidden id="vehicleId"
+                                   value="#{cc.attrs.booking.vehicle.id}"/> 
+                    <h:messages for="vehicleId" styleClass="text-danger" />
+                </h:panelGroup>
+            </p>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel for="bookingDate" value="Vehicle BookDate" />
+                    <h:inputText id="bookingDate" 
+                                 readonly="#{cc.attrs.operation.equalsIgnoreCase('read') or cc.attrs.operation.equalsIgnoreCase('delete')}"
+                                 p:type="date" 
+                                 value="#{cc.attrs.booking.bookingDate}"> 
+                        <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                    </h:inputText>
+                </h:panelGroup>
+            </p>
+
+           
+           
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel for="bookingType" value="Booking Type" />
+
+                    <h:selectOneMenu 
+                        readonly="#{cc.attrs.readonly}"
+                        disabled="#{cc.attrs.readonly}"
+                        id="bookingType" 
+                        value="#{cc.attrs.booking.type}">
+                        <f:selectItem itemLabel="Car" itemValue="Car" />
+                        <f:selectItem itemLabel="MotorBike" itemValue="MotorBike" />
+                        <f:selectItem itemLabel="SUV" itemValue="SUV" />
+                        <f:selectItem itemLabel="Truck" itemValue="Truck" />
+                    </h:selectOneMenu>
+                    <h:message for="bookingType" styleClass="text-danger" />
+                </h:panelGroup>
+            </p>
+            
+            <h:commandButton
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('create')}"
+                value="Schedule Booking" 
+                action="#{cc.attrs.action}"/>
+
+            <h:commandButton
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('update')}"
+                value="Modify Booking" 
+                action="#{cc.attrs.action}"/>
+
+            <h:commandButton
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('delete')}"
+                value="Cancel Booking?" 
+                action="#{cc.attrs.action}"/>
+
+        </h:form>
+
+    </cc:implementation>
+</html>
